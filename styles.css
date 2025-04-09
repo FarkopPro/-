@@ -1598,4 +1598,43 @@ footer {
     .service-price {
         font-size: 0.9rem;
     }
+}
+
+.reviews-controls {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.toggle-reviews-button {
+    background: var(--gradient);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-reviews-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-reviews-button i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.toggle-reviews-button:hover i {
+    transform: scale(1.1);
+}
+
+.toggle-reviews-button.hidden i {
+    transform: rotate(180deg);
 } 

@@ -47,24 +47,52 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Обработка форм
+    // Обработка формы обратной связи
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Здесь будет логика отправки формы
-            showNotification('Спасибо! Мы свяжемся с вами в ближайшее время.');
-            this.reset();
+            
+            const name = this.querySelector('input[type="text"]').value;
+            const phone = this.querySelector('input[type="tel"]').value;
+            const service = this.querySelector('select').value;
+            const message = this.querySelector('textarea').value;
+
+            // Формируем текст сообщения
+            const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📱 Телефон: ${phone}\n🔧 Услуга: ${service}\n💬 Сообщение: ${message}`;
+            
+            // Кодируем текст для URL
+            const encodedText = encodeURIComponent(text);
+            
+            // Открываем WhatsApp с предзаполненным сообщением
+            window.open(`https://wa.me/79001234567?text=${encodedText}`, '_blank');
+            
+            showNotification('Спасибо! Ваша заявка успешно отправлена.');
+            contactForm.reset();
         });
     }
 
+    // Обработка формы отзывов
     const reviewForm = document.getElementById('reviewForm');
     if (reviewForm) {
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Здесь будет логика отправки отзыва
+            
+            const name = this.querySelector('input[type="text"]').value;
+            const rating = this.querySelector('.star-rating .active').dataset.rating;
+            const message = this.querySelector('textarea').value;
+
+            // Формируем текст сообщения
+            const text = `⭐️ Новый отзыв с сайта!\n\n👤 Имя: ${name}\n⭐️ Оценка: ${rating}/5\n💬 Отзыв: ${message}`;
+            
+            // Кодируем текст для URL
+            const encodedText = encodeURIComponent(text);
+            
+            // Открываем WhatsApp с предзаполненным сообщением
+            window.open(`https://wa.me/79001234567?text=${encodedText}`, '_blank');
+            
             showNotification('Спасибо за ваш отзыв!');
-            this.reset();
+            reviewForm.reset();
         });
     }
 
@@ -226,5 +254,18 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 0,
             behavior: 'smooth'
         });
+    });
+
+    // Обработка переключения отзывов
+    const toggleReviewsButton = document.getElementById('toggleReviews');
+    const reviewsGrid = document.querySelector('.reviews-grid');
+    let reviewsVisible = false;
+
+    toggleReviewsButton.addEventListener('click', () => {
+        reviewsVisible = !reviewsVisible;
+        reviewsGrid.style.display = reviewsVisible ? 'grid' : 'none';
+        toggleReviewsButton.classList.toggle('hidden');
+        toggleReviewsButton.querySelector('span').textContent = reviewsVisible ? 'Скрыть отзывы' : 'Показать отзывы';
+        toggleReviewsButton.querySelector('i').className = reviewsVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
     });
 }); 

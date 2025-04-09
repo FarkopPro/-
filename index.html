@@ -95,43 +95,38 @@
 
         <section id="about" class="about">
             <div class="about-content">
-                <div class="text-left">
-                    <span class="section-subtitle">О нас</span>
-                    <h2>Профессиональная установка фаркопов в Казани</h2>
-                    <p class="about-description">
-                        Мы специализируемся на установке фаркопов для всех марок автомобилей. Наши мастера имеют многолетний опыт работы и используют только качественное оборудование.
-                    </p>
-                    <div class="about-features">
-                        <div class="features-column">
-                            <div class="feature">
-                                <div class="feature-icon">
-                                    <i class="fas fa-tools"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Гарантия на все работы</h4>
-                                    <p>Мы предоставляем гарантию на все виды работ</p>
-                                    <div class="feature-stat">2000+ установленных фаркопов</div>
-                                </div>
+                <h2>О нас</h2>
+                <p>Мы специализируемся на установке фаркопов и обслуживании прицепов. Наша команда профессионалов обеспечивает качественный монтаж и подключение электрики для всех типов прицепов.</p>
+                <div class="about-features">
+                    <div class="features-column">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-tools"></i>
                             </div>
-                            <div class="feature">
-                                <div class="feature-icon">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Опытные мастера</h4>
-                                    <p>Наши специалисты имеют многолетний опыт</p>
-                                    <div class="feature-stat">5+ лет опыта</div>
-                                </div>
+                            <div class="feature-content">
+                                <h4>Гарантия на все работы</h4>
+                                <p>Мы предоставляем гарантию на все виды работ</p>
+                                <div class="feature-stat">2000+ установленных фаркопов</div>
                             </div>
-                            <div class="feature">
-                                <div class="feature-icon">
-                                    <i class="fas fa-tools"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Современное оборудование</h4>
-                                    <p>Используем только качественные инструменты</p>
-                                    <div class="feature-stat">98% довольных клиентов</div>
-                                </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Опытные мастера</h4>
+                                <p>Наши специалисты имеют многолетний опыт</p>
+                                <div class="feature-stat">5+ лет опыта</div>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Современное оборудование</h4>
+                                <p>Используем только качественные инструменты</p>
+                                <div class="feature-stat">98% довольных клиентов</div>
                             </div>
                         </div>
                     </div>
@@ -331,7 +326,13 @@
                 <p>Что говорят о нас клиенты</p>
             </div>
             <div class="reviews-container">
-                <div class="reviews-grid">
+                <div class="reviews-controls">
+                    <button id="toggleReviews" class="toggle-reviews-button">
+                        <i class="fas fa-eye"></i>
+                        <span>Показать отзывы</span>
+                    </button>
+                </div>
+                <div class="reviews-grid" style="display: none;">
                     <div class="review-card">
                         <div class="review-header">
                             <div class="review-avatar">
@@ -549,6 +550,7 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
+    <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
