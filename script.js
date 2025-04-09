@@ -188,4 +188,43 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.about-stats').forEach(stats => {
         statsObserver.observe(stats);
     });
+
+    // Обработка сворачивания разделов
+    document.querySelectorAll('.category-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const category = header.parentElement;
+            const toggleButton = header.querySelector('.toggle-button');
+            category.classList.toggle('collapsed');
+            toggleButton.classList.toggle('active');
+        });
+    });
+
+    // Обработка сворачивания формы отзывов
+    const formHeader = document.querySelector('.form-header');
+    if (formHeader) {
+        formHeader.addEventListener('click', () => {
+            const formContainer = formHeader.nextElementSibling;
+            const toggleButton = formHeader.querySelector('.toggle-button');
+            formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+            toggleButton.classList.toggle('active');
+        });
+    }
+
+    // Кнопка прокрутки вверх
+    const scrollToTopButton = document.querySelector('.scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopButton.classList.add('visible');
+        } else {
+            scrollToTopButton.classList.remove('visible');
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }); 
