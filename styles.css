@@ -423,6 +423,13 @@ body {
     margin-bottom: 3rem;
 }
 
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
 .feature {
     display: flex;
     align-items: flex-start;
@@ -615,10 +622,24 @@ body {
         grid-template-columns: 1fr;
     }
     
+    .features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
     .feature {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .feature-icon i {
+        font-size: 1.5rem;
     }
     
     .about-card {
