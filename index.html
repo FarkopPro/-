@@ -495,24 +495,24 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" class="contact-form">
                         <div class="form-group">
-                            <input type="text" placeholder="Ваше имя" required>
+                            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Ваш телефон" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Ваш телефон" required>
                         </div>
                         <div class="form-group">
-                            <select required>
-                                <option value="">Выберите услугу</option>
-                                <option value="install">Установка фаркопа</option>
-                                <option value="repair">Ремонт прицепа</option>
-                                <option value="electronics">Подключение электроники</option>
-                                <option value="other">Другое</option>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Выберите услугу</option>
+                                <option value="Установка фаркопа">Установка фаркопа</option>
+                                <option value="Подключение электрики">Подключение электрики</option>
+                                <option value="Ремонт прицепа">Ремонт прицепа</option>
+                                <option value="Консультация">Консультация</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Сообщение" required></textarea>
+                            <textarea id="message" name="message" placeholder="Ваше сообщение (необязательно)"></textarea>
                         </div>
                         <button type="submit" class="submit-button">
                             Отправить заявку

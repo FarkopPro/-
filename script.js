@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const name = this.querySelector('input[type="text"]').value;
-            const phone = this.querySelector('input[type="tel"]').value;
-            const service = this.querySelector('select').value;
-            const message = this.querySelector('textarea').value;
+            const name = this.querySelector('input[name="name"]').value;
+            const phone = this.querySelector('input[name="phone"]').value;
+            const service = this.querySelector('select[name="service"]').value;
+            const message = this.querySelector('textarea[name="message"]').value || 'Не указано';
 
             // Формируем текст сообщения
             const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📱 Телефон: ${phone}\n🔧 Услуга: ${service}\n💬 Сообщение: ${message}`;
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const encodedText = encodeURIComponent(text);
             
             // Открываем WhatsApp с предзаполненным сообщением
-            window.open(`https://wa.me/79001234567?text=${encodedText}`, '_blank');
+            window.open(`https://wa.me/79823825858?text=${encodedText}`, '_blank');
             
             showNotification('Спасибо! Ваша заявка успешно отправлена.');
             contactForm.reset();
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const encodedText = encodeURIComponent(text);
             
             // Открываем WhatsApp с предзаполненным сообщением
-            window.open(`https://wa.me/79001234567?text=${encodedText}`, '_blank');
+            window.open(`https://wa.me/79823825858?text=${encodedText}`, '_blank');
             
             showNotification('Спасибо за ваш отзыв!');
             reviewForm.reset();
