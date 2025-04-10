@@ -587,10 +587,6 @@ body {
     .about-card {
         right: 20px;
     }
-    
-    .about-stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 576px) {
@@ -698,12 +694,16 @@ body {
     background-color: var(--light-bg);
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+.gallery-container {
     max-width: 1400px;
     margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .gallery-item {
@@ -729,6 +729,60 @@ body {
 
 .gallery-item:hover img {
     transform: scale(1.1);
+}
+
+.gallery-hidden {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.gallery-hidden.visible {
+    display: grid;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-controls {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.toggle-gallery-button {
+    background: var(--gradient);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-gallery-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-gallery-button i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.toggle-gallery-button:hover i {
+    transform: scale(1.1);
+}
+
+.toggle-gallery-button.hidden i {
+    transform: rotate(180deg);
 }
 
 /* Отзывы */
@@ -1185,49 +1239,73 @@ footer {
 
 /* Прайс-лист */
 .price-list {
-    max-width: 1000px;
+    max-width: 800px;
     margin: 0 auto;
-    background: var(--white);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
 }
 
 .price-category {
-    padding: 2rem;
-    border-bottom: 1px solid #eee;
+    background: var(--light-bg);
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    overflow: hidden;
 }
 
-.price-category:last-child {
-    border-bottom: none;
-}
-
-.price-category h3 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-left: 1rem;
-    border-left: 4px solid var(--accent-color);
-}
-
-.price-items {
-    display: grid;
-    gap: 1rem;
-}
-
-.price-item {
+.price-question {
+    padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: var(--light-bg);
-    border-radius: 10px;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.price-item:hover {
-    transform: translateX(10px);
-    background: linear-gradient(to right, var(--light-bg), var(--white));
+.price-question h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.price-question i {
+    color: var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+.price-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.price-category.active .price-question {
+    background: var(--gradient);
+    color: var(--white);
+}
+
+.price-category.active .price-question h3 {
+    color: var(--white);
+}
+
+.price-category.active .price-question i {
+    transform: rotate(180deg);
+    color: var(--white);
+}
+
+.price-category.active .price-answer {
+    padding: 1.5rem;
+    max-height: 1000px;
+}
+
+.price-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-item:last-child {
+    border-bottom: none;
 }
 
 .service-name {
@@ -1256,21 +1334,53 @@ footer {
 
 @media (max-width: 768px) {
     .price-list {
-        margin: 0 1rem;
+        padding: 0;
+        width: 100%;
     }
     
     .price-category {
-        padding: 1.5rem;
+        width: 100%;
+        margin: 0 0 1rem 0;
+    }
+    
+    .price-question {
+        padding: 1rem;
+    }
+    
+    .price-answer {
+        padding: 0 1rem 1rem 1rem;
+    }
+    
+    .price-item {
+        padding: 0.8rem 0;
+    }
+    
+    .price-note {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .price-list {
+        padding: 0;
+    }
+    
+    .price-category {
+        margin: 0 0 0.8rem 0;
+    }
+    
+    .price-question h3 {
+        font-size: 1.1rem;
     }
     
     .price-item {
         flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
+        align-items: flex-start;
+        gap: 0.3rem;
     }
     
-    .price-item:hover {
-        transform: none;
+    .service-price {
+        font-size: 1rem;
     }
 }
 
@@ -1454,32 +1564,42 @@ footer {
 /* Кнопка прокрутки вверх */
 .scroll-to-top {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: var(--gradient);
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.scroll-to-top i {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.scroll-to-top:hover {
+    background: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top:hover i {
+    transform: translateY(-3px);
 }
 
 .scroll-to-top.visible {
     opacity: 1;
     visibility: visible;
-}
-
-.scroll-to-top:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Стили для сворачиваемых разделов */
@@ -1637,4 +1757,38 @@ footer {
 
 .toggle-reviews-button.hidden i {
     transform: rotate(180deg);
+}
+
+.about h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-align: left;
+    position: relative;
+    display: inline-block;
+}
+
+.about h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid,
+    .gallery-hidden {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid,
+    .gallery-hidden {
+        grid-template-columns: 1fr;
+    }
 } 

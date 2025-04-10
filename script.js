@@ -16,16 +16,104 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Обработка кликов по кнопкам "Записаться"
+    const serviceButtons = document.querySelectorAll('.service-link');
+    console.log('Найдено кнопок:', serviceButtons.length);
+
+    serviceButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Клик по кнопке "Записаться"');
+            
+            // Получаем название услуги из заголовка карточки
+            const serviceCard = this.closest('.service-card');
+            const serviceTitle = serviceCard.querySelector('h3').textContent;
+            console.log('Название услуги:', serviceTitle);
+            
+            // Находим форму
+            const contactForm = document.querySelector('.contact-form');
+            if (!contactForm) {
+                console.error('Форма не найдена');
+                return;
+            }
+            
+            // Находим select с услугами
+            const serviceSelect = contactForm.querySelector('select[name="service"]');
+            if (!serviceSelect) {
+                console.error('Select с услугами не найден');
+                return;
+            }
+            
+            // Маппинг названий услуг из карточек в значения select
+            const serviceMapping = {
+                'Установка фаркопов': 'Установка фаркопа',
+                'Подключение электрики': 'Подключение электрики',
+                'Ремонт прицепов': 'Ремонт прицепа'
+            };
+            
+            // Получаем соответствующее значение для select
+            const selectValue = serviceMapping[serviceTitle];
+            console.log('Значение для select:', selectValue);
+            
+            if (selectValue) {
+                // Устанавливаем значение в select
+                Array.from(serviceSelect.options).forEach(option => {
+                    if (option.text === selectValue) {
+                        serviceSelect.value = option.value;
+                        console.log('Установлено значение:', option.value);
+                    }
+                });
+            } else {
+                console.error('Не найдено соответствующее значение в маппинге');
+            }
+            
+            // Плавно прокручиваем к форме
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const formPosition = contactForm.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+            
+            window.scrollTo({
+                top: formPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+
     // Плавная прокрутка
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Специальная обработка для кнопки "Записаться на установку"
+                if (targetId === '#contacts') {
+                    // Получаем высоту шапки
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    
+                    // Находим форму
+                    const form = target.querySelector('.contact-form');
+                    if (form) {
+                        // Прокручиваем так, чтобы форма была полностью видна
+                        const formPosition = form.getBoundingClientRect().top + window.pageYOffset;
+                        window.scrollTo({
+                            top: formPosition - headerHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Если форма не найдена, используем стандартную прокрутку
+                        window.scrollTo({
+                            top: target.offsetTop - headerHeight - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // Для других ссылок используем стандартную прокрутку
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         });
     });
@@ -217,13 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
         statsObserver.observe(stats);
     });
 
-    // Обработка сворачивания разделов
-    document.querySelectorAll('.category-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const category = header.parentElement;
-            const toggleButton = header.querySelector('.toggle-button');
-            category.classList.toggle('collapsed');
-            toggleButton.classList.toggle('active');
+    // Обработка сворачивания/разворачивания цен
+    document.querySelectorAll('.price-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const category = question.parentElement;
+            category.classList.toggle('active');
         });
     });
 
@@ -268,4 +354,17 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleReviewsButton.querySelector('span').textContent = reviewsVisible ? 'Скрыть отзывы' : 'Показать отзывы';
         toggleReviewsButton.querySelector('i').className = reviewsVisible ? 'fas fa-eye-slash' : 'fas fa-eye';
     });
+
+    // Обработка галереи
+    const toggleGalleryButton = document.querySelector('.toggle-gallery-button');
+    const galleryHidden = document.querySelector('.gallery-hidden');
+
+    if (toggleGalleryButton && galleryHidden) {
+        toggleGalleryButton.addEventListener('click', () => {
+            galleryHidden.classList.toggle('visible');
+            const isVisible = galleryHidden.classList.contains('visible');
+            toggleGalleryButton.querySelector('span').textContent = isVisible ? 'Показать меньше фото' : 'Показать больше фото';
+            toggleGalleryButton.classList.toggle('hidden');
+        });
+    }
 }); 
